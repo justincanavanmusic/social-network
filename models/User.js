@@ -1,32 +1,38 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    
-    username: { 
-        type: String, 
-        required: true, 
-        unique: true },  //add validation  
-        // validate: {
-        // validator: () => Promise.resolve(false),
-        // message: 'Email validation failed'}
-       
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true,
-        trim: true 
-            },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  }, 
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    //add validation
+  // validate: {
+  // validator: () => Promise.resolve(false),
+  // message: 'Email validation failed'}
+  },
+  //foreign key, will hold the ObjectIds for all of the thoughts objects
+  thoughts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "thought",
+    },
+  ],
+  friends: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
+});
 
-    thoughts: [{
-        type: Schema.Types.ObjectId, ref: 'thought',
-        }],
+//create virtual friendCount... retrieves length of user's friends array on query
 
-    friends: [{
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-        }],
-    });
-
-    //create virtual friendCount... retrieves length of user's friends array on query
+const User = mongoose.model("user", userSchema);
 
 module.exports = User;
