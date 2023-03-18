@@ -12,9 +12,9 @@ const userSchema = new Schema({
     required: true,
     unique: true,
     //add validation
-  // validate: {
-  // validator: () => Promise.resolve(false),
-  // message: 'Email validation failed'}
+  validate: [
+    email => email.match(/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/), "Email is not valid"
+  ]
   },
   //foreign key, will hold the ObjectIds for all of the thoughts objects
   thoughts: [
