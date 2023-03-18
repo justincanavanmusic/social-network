@@ -1,5 +1,8 @@
 const { Schema, model } = require("mongoose");
 
+const emailRegex = (/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/);
+
+
 const userSchema = new Schema({
   username: {
     type: String,
@@ -13,7 +16,7 @@ const userSchema = new Schema({
     unique: true,
     //add validation
   validate: [
-    email => email.match(/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/), "Email is not valid"
+    email => email.match(emailRegex), "Email is not valid"
   ]
   },
   //foreign key, will hold the ObjectIds for all of the thoughts objects
