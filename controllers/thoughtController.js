@@ -15,4 +15,6 @@ module.exports = {
           )
           .catch((err) => res.status(500).json(err));
       },
+
+      //add createThought (activity 21 commentRoutes)
 }

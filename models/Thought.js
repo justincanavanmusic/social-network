@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
+const { Schema, model, Types } = require("mongoose");
 
-const reactionSchema = new mongoose.Schema({
+const reactionSchema = new Schema({
   reactionId: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
+    default: Types.ObjectId,
   },
   reactionBody: {
     type: String,
@@ -43,6 +43,6 @@ const thoughtSchema = new Schema({
 
 //create virtual reactionCount... retrieves length of thoughts reactions array on query
 
-const Thought = mongoose.model("thought", thoughtSchema);
+const Thought = model("thought", thoughtSchema);
 
 module.exports = Thought;
