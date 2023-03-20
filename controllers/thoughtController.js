@@ -38,6 +38,33 @@ module.exports = {
         console.error(err);
       });
       },
+    updateThought(req, res) {
+      Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $set: req.body },
+        { runValidators: true, new: true }
+      )
+      .then((thought) =>
+      !thought
+        ? res.status(404).json({ message: 'No thought with this id!' })
+        : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
+    },
+    deleteThought(req, res){
+      Thought.findOneAndDelete({ _id: req.params.thoughtId
+      })
+        .then((thought) =>
+        !thought 
+          ? res.status(404).json({ message: 'No thought with that ID' })
+          : User.deleteMany({ _id: { $in: thought.reactions}})
+        )
+        .then(() => res.json({ message: 'Thought and reactions deleted!' }))
+        .catch((err) => res.status(500).json(err));
+    }, 
+    
+          //REACTION ROUTES
+
     addReaction(req, res) {
       Thought.findOneAndUpdate(
         { _id: req.params.thoughtId }, 
@@ -55,19 +82,19 @@ module.exports = {
         console.error(err);
       });
       },
-        //delete
+        
       deleteReaction(req, res) {
-        Thought.findOneAndDelete(
+        Thought.findOneAndUpdate(
           { _id: req.params.thoughtId }, 
           { $pull: { reactions: { reactionId: req.params.reactionId } } },
-          { new: true },
+          { runValidators: true, new: true },
           )
           .then((thought) =>
             !thought
             ? res
                 .status(404)
-                .json({ message: 'reaction created, but no reactions with this ID' })
-            : res.json({ message: 'reaction created' })
+                .json({ message: 'No reactions with this ID!' })
+            : res.json({ message: 'Reaction deleted!' })
         )
         .catch((err) => {
           console.error(err);
@@ -75,7 +102,3 @@ module.exports = {
         },
     }
     
-    
-
-
-      //add createThought (activity 21 commentRoutes)
