@@ -12,6 +12,7 @@ const { Thought, User } = require("../models");
     // Get all courses
     getUsers(req, res) {
       User.find()
+      .populate('thoughts')
         .then((users) => res.json(users))
         .catch((err) => res.status(500).json(err));
     },
