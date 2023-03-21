@@ -81,7 +81,7 @@ module.exports = {
           !thought
           ? res
               .status(404)
-              .json({ message: 'reaction added, but no thoughtss with this ID' })
+              .json({ message: 'reaction added, but no thoughts with this ID' })
           : res.json({ message: 'reaction created' })
       )
       .catch((err) => {
@@ -99,7 +99,7 @@ module.exports = {
             !thought
             ? res
                 .status(404)
-                .json({ message: 'No reactions with this ID!' })
+                .json({ message: 'No thoughts with this ID!' })
             : res.json({ message: 'Reaction deleted!' })
         )
       

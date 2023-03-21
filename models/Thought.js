@@ -22,8 +22,8 @@ const reactionSchema = new Schema({
     type: Date,
     default: Date.now,
     //getter method to format date
-    get: function(date) {
-      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    get: function(createdAt) {
+      return `${createdAt.getMonth() + 1}/${createdAt.getDate()}/${createdAt.getFullYear()}`
     }
   },
 });
@@ -40,6 +40,7 @@ const thoughtSchema = new Schema(
       type: Date,
       default: Date.now,
       get: function(date) {
+        // console.log(`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`)
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
       }
     },
