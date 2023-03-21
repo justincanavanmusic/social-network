@@ -3,7 +3,8 @@ const { Thought, User } = require("../models");
 module.exports = {
   getUsers(req, res) {
     User.find()
-      .populate("thoughts")
+    // .populate('thoughts')
+      .populate('thoughts')
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -70,7 +71,7 @@ module.exports = {
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friend: { friendId: req.params.friendId } } },
+      { $pull: { friends: req.params.friendId } },
       { new: true }
     )
       .then((user) =>
