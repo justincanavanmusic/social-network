@@ -3,9 +3,9 @@ const { Thought, User } = require("../models");
 module.exports = {
   getUsers(req, res) {
     User.find()
-    .populate('thoughts')
-      .then((user) => res.json(user))
-      .catch((err) => res.status.json(err));
+    // .populate('thoughts')
+      .then((users) => res.json(users))
+      .catch((err) => res.status(500).json(err));
   },
   getOneUser(req, res) {
     User.findOne({ _id: req.params.userId })
@@ -51,7 +51,7 @@ module.exports = {
     addFriend(req, res) {
       User.findOneAndUpdate(
         { _id: req.params.userId },
-      { $addToSet: { friends: req.body } },
+      { $addToSet: { friends: req.params.friendId } },
       { runValidators: true, new: true }
       )
       .then((user) =>
