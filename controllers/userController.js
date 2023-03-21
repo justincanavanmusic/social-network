@@ -1,13 +1,31 @@
 const { Thought, User } = require("../models");
 
-module.exports = {
-  getUsers(req, res) {
-    User.find()
-    // .populate('thoughts')
-      .populate('thoughts')
-      .then((users) => res.json(users))
-      .catch((err) => res.status(500).json(err));
-  },
+// module.exports = {
+  // getUsers(req, res) {
+  //   User.find()
+  //   // .populate('thoughts')
+  //     .populate('thoughts')
+  //     .then((users) => res.json(users))
+  //     .catch((err) => res.status(500).json(err));
+  // },
+  module.exports = {
+    // Get all courses
+    getUsers(req, res) {
+      User.find()
+        .then((users) => res.json(users))
+        .catch((err) => res.status(500).json(err));
+    },
+    // getUsers(req, res) {
+    //   User.find()
+    //     .select('-__v')
+    //     .then((users) => {
+    //       res.json(users);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       res.status(500).json(err);
+    //     });
+    // },
   getOneUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .then((user) =>
