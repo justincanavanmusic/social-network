@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const emailRegex = (/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/);
 
-
 const userSchema = new Schema({
   username: {
     type: String,
@@ -14,9 +13,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    //add validation
   validate: [
-    email => email.match(emailRegex), "Email is not valid"
+   email => email.match(emailRegex), "Email is not valid"
   ]
   },
   //foreign key, will hold the ObjectIds for all of the thoughts objects
@@ -32,6 +30,16 @@ const userSchema = new Schema({
       ref: "user",
     },
   ],
+},
+{
+  toJSON: {
+    virtuals: true,
+  }
+}
+);
+
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
 });
 
 //create virtual friendCount... retrieves length of user's friends array on query
