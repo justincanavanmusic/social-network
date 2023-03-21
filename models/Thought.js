@@ -1,8 +1,5 @@
 const { Schema, model, Types } = require("mongoose");
 
-// const newDate = format_date => {
-//   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-// }
 
 const reactionSchema = new Schema({
   reactionId: {
@@ -21,9 +18,8 @@ const reactionSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    //getter method to format date
-    get: function(createdAt) {
-      return `${createdAt.getMonth() + 1}/${createdAt.getDate()}/${createdAt.getFullYear()}`
+    get: (date) => {
+      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
     }
   },
 });
@@ -39,21 +35,20 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: function(date) {
-        // console.log(`${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`)
+      get: (date) => {
         return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
       }
     },
     username: {
       type: String,
       required: true,
-      //get this from user?
     },
     reactions: [reactionSchema],
   },
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false,
   }
